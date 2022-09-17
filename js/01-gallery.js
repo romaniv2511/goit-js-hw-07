@@ -2,9 +2,9 @@ import { galleryItems } from './gallery-items.js';
 // Change code below this line
 const galleryRef = document.querySelector('.gallery');
 
-const galleryList = createGallery(galleryItems);
+const markupGallery = createMarkup(galleryItems);
 
-function createGallery(set) {
+function createMarkup(set) {
     const newGalleryList = set.map(img => {
         return `<div class="gallery__item">
                     <a class="gallery__link" href="${img.original}">
@@ -41,13 +41,10 @@ function openModalClick(evt) {
     }
 
     function onCloseModal(e) {
-        if (e.code !== 'Escape') {
-            return;
+        if (e.code === 'Escape') {
+            instance.close();
+             window.removeEventListener('keydown', onCloseModal);
         }
-        
-        instance.close();
-
-        window.removeEventListener('keydown', onCloseModal);
     }
 }
 
