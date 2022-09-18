@@ -28,22 +28,22 @@ galleryRef.addEventListener('click', openModalClick);
 function openModalClick(evt) {
     evt.preventDefault();
 
-    const instance = basicLightbox.create(`
-        <img src="${evt.target.dataset.source}" width="800" height="600">
-    `)
+    const instance = basicLightbox.create(
+        `<img src="${evt.target.dataset.source}" width="800" height="600">`,
+        {
+            onShow: () => {
+            document.addEventListener("keydown", OnEscClose);
+            },
+            onClose: () => {
+            document.removeEventListener("keydown", OnEscClose);
+            },
+        })
     
-    instance.show()   
+    instance.show();
 
-    const isOpen = document.querySelector('.basicLightbox')
-
-    if (isOpen) {
-        window.addEventListener('keydown', onCloseModal);
-    }
-
-    function onCloseModal(e) {
+    function OnEscClose(e) {
         if (e.code === 'Escape') {
             instance.close();
-             window.removeEventListener('keydown', onCloseModal);
         }
     }
 }
